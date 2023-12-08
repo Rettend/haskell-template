@@ -1,2 +1,3 @@
 # haskell-template
- 🟣 Haskell bad
+
+🟣 Haskell bad

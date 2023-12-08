@@ -1,0 +1,26 @@
+cabal-version:      2.4
+name:               haskell-template
+version:            0.1.0.0
+synopsis:           Haskell bad
+description:        Haskell Template with Unit Tests and Benchmarks
+homepage:           https://github.com/Rettend/haskell-project
+license:            MIT
+license-file:       LICENSE
+author:             Hegyi Áron Ferenc
+maintainer:         hegyi.aron101@gmail.com
+extra-source-files: README.md
+
+executable haskell-template
+  main-is:          Main.hs
+  other-modules:
+    Task1
+    Task2
+    TestUtils
+
+  build-depends:
+    , base   ^>=4.17.2.0
+    , HUnit
+    , time
+
+  hs-source-dirs:   src module/lesson1 module/lesson2
+  default-language: Haskell2010

@@ -8,5 +8,8 @@ main = do
 
 tests :: Test
 tests =
-  TestList
-    []
+  TestList [TestLabel "doMath" testDoMath]
+
+testDoMath :: Test
+testDoMath = TestCase $ do
+  asserEqual "Test your math skills" undefined (doMath (+) 1 2)

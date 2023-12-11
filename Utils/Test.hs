@@ -29,9 +29,9 @@ run tests = do
 
 runner :: Maybe Int -> Int -> Test -> IO ()
 runner benchmarkCount testNumber test = do
-  putStrLn $ "Test #" ++ show testNumber
-  void $ runTestTT test
   when (isJust benchmarkCount) $ do
+    putStrLn $ "Test #" ++ show testNumber
+    void $ runTestTT test
     let count = fromMaybe 1 benchmarkCount
     let barLength = 50
     times <- forM [1 .. count] $ \i -> do

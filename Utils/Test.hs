@@ -1,13 +1,15 @@
 module Submodule.Utils.Test where
 
-import Control.Monad (replicateM, void, when)
+import Control.Monad (forM, replicateM, void, when)
 import Data.Char (toUpper)
 import Data.List (sort)
 import Data.Maybe (fromMaybe, isJust, isNothing, listToMaybe, mapMaybe)
 import Data.Time.Clock (diffUTCTime, getCurrentTime)
 import System.CPUTime (getCPUTime)
+import System.Console.ANSI (clearFromCursorToLineEnd, cursorUpLine)
 import System.Environment (getArgs)
 import Test.HUnit (Counts, PutText (..), Test (..), assertBool, assertEqual, runTestTT, runTestText)
+import Text.Printf (printf)
 import Text.Read (readMaybe)
 
 run :: Test -> IO ()
@@ -19,23 +21,30 @@ run tests = do
   if null testNumbers
     then do
       mapM_ (uncurry (runner benchmarkCount)) (zip [1 ..] (getTests tests))
-      putStrLn "Result:"
-      void $ runTestTT tests
     else do
       let selectedTests = [(testNumber, getTests tests !! (testNumber - 1)) | testNumber <- testNumbers, testNumber > 0, testNumber <= length (getTests tests)]
       mapM_ (uncurry (runner benchmarkCount)) selectedTests
+  putStrLn "Result:"
+  void $ runTestTT tests
 
 runner :: Maybe Int -> Int -> Test -> IO ()
 runner benchmarkCount testNumber test = do
-  putStrLn $ "Test #" ++ show testNumber
-  void $ runTestTT test
   when (isJust benchmarkCount) $ do
+    putStrLn $ "Test #" ++ show testNumber
+    void $ runTestTT test
     let count = fromMaybe 1 benchmarkCount
-    times <- replicateM count $ do
+    let barLength = 50
+    times <- forM [1 .. count] $ \i -> do
       start <- getCPUTime
       _ <- runTestText discardOutput test
       end <- getCPUTime
-      return $ fromIntegral (end - start) / (10 ^ 12)
+      let time :: Double = fromIntegral (end - start) / (10 ^ 12)
+      let progress = (i * barLength) `div` count
+      cursorUpLine 1
+      clearFromCursorToLineEnd
+      printf "Benchmark %d/%d " i count
+      putStrLn $ "Progress: [" ++ replicate progress '█' ++ replicate (barLength - progress) '░' ++ "]"
+      return time
     putStrLn $ "Benchmark result: " ++ show (sum times / fromIntegral count) ++ " seconds"
   putStrLn ""
 

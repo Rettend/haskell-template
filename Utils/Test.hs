@@ -1,4 +1,4 @@
-module Utils.Test where
+module Submodule.Utils.Test where
 
 import Control.Monad (replicateM, void, when)
 import Data.Char (toUpper)

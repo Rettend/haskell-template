@@ -2,8 +2,13 @@
 
 ## 📦 Install
 
+Dependencies:
+
+- HUnit
+- tabular
+
 > [!IMPORTANT]  
-> HUnit is a required dependency
+> Install the dependencies using `cabal install`
 
 ```bash
 cabal install HUnit
@@ -12,14 +17,15 @@ cabal install HUnit
 ## 📖 Usage
 
 ```bash
-runhaskell module/lesson1/test1.hs <test number> [-b] [iterations]
+runhaskell module/lesson1/test1.hs <test numbers>
 ```
 
-All arguments are optional:
+All arguments are optional
 
-- `<test number>`: The test to run by index
-- `-b`: Run benchmarks
-- `[iterations]`: Number of iterations to run benchmarks
+Flags:
+
+- `-b [iterations]`: Run benchmarks for [iterations] iterations, default is 1
+- `-s`: Show summary table where tests are ordered by execution time (slowest first)
 
 ## 📚 Examples
 
@@ -35,10 +41,10 @@ Run all tests with benchmarks for 1000000 iterations
 runhaskell module/lesson1/test1.hs -b 1000000
 ```
 
-Run specific test with benchmarks for 1000000 iterations
+Run the first and third tests with benchmarks for 1000000 iterations and show summary table
 
 ```bash
-runhaskell module/lesson1/test1.hs 1 -b 1000000
+runhaskell module/lesson1/test1.hs 1 3 -b 1000000 -s
 ```
 
 > [!TIP]

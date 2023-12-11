@@ -1,6 +1,8 @@
+module Test2 where
+
 import Task2
 import Test.HUnit (Test (..), assertEqual)
-import TestUtils (run)
+import Utils.Test (run)
 
 main :: IO ()
 main = do
@@ -12,4 +14,4 @@ tests =
 
 testDoMath :: Test
 testDoMath = TestCase $ do
-  asserEqual "Test your math skills" undefined (doMath (+) 1 2)
+  assertEqual "Test your math skills" undefined (doMath (+) 1 2)

@@ -1,4 +1,4 @@
-module Task1 where
+module Module.Lesson1.Task1 where
 
 import Control.Arrow ((>>>))
 
@@ -6,8 +6,8 @@ import Control.Arrow ((>>>))
 composeAll :: [a -> a] -> a -> a
 composeAll = foldr (.) id
 
--- >>> composeAll [(^ 1), (^ 2), (^ 3)] 11
--- 1771561
+-- >>> composeAll [(^ 1), (^ 2), (^ 3)] 12
+-- 2985984
 
 -- | Task #2
 flabbergast :: (a -> a, Int) -> a -> a

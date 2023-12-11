@@ -1,6 +1,8 @@
-import Task1
+module Module.Lesson1.Test1 where
+
+import Module.Lesson1.Task1
 import Test.HUnit (Test (..), assertEqual)
-import TestUtils (run)
+import Utils.Test (run)
 
 main :: IO ()
 main = do
@@ -23,10 +25,6 @@ testComposeAll = TestCase $ do
   assertEqual "Test for [1, 2, 3] and 8" 262144 (composeAll [(^ 1), (^ 2), (^ 3)] 8)
   assertEqual "Test for [1, 2, 3] and 9" 531441 (composeAll [(^ 1), (^ 2), (^ 3)] 9)
   assertEqual "Test for [1, 2, 3] and 10" 1000000 (composeAll [(^ 1), (^ 2), (^ 3)] 10)
-  assertEqual "Test for [1, 2, 3] and 11" 1977326743 (composeAll [(^ 1), (^ 2), (^ 3)] 11)
-  assertEqual "Test for [1, 2, 3] and 12" 13841287201 (composeAll [(^ 1), (^ 2), (^ 3)] 12)
-  assertEqual "Test for [1, 2, 3] and 13" 96889010407 (composeAll [(^ 1), (^ 2), (^ 3)] 13)
-  assertEqual "Test for [1, 2, 3] and 14" 678223072849 (composeAll [(^ 1), (^ 2), (^ 3)] 14)
 
 testFlabbergast :: Test
 testFlabbergast = TestCase $ do

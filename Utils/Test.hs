@@ -17,7 +17,9 @@ run tests = do
   let testNumbers = mapMaybe readMaybe testArgs
   let benchmarkCount = if null benchmarkArgs then Nothing else Just (fromMaybe 1 (listToMaybe $ mapMaybe readMaybe (drop 1 benchmarkArgs)))
   if null testNumbers
-    then void (runTestTT tests)
+    then
+      let tests' = getTests tests
+       in mapM_ (uncurry (runner benchmarkCount)) (zip [1 ..] tests')
     else do
       let selectedTests = [(testNumber, getTests tests !! (testNumber - 1)) | testNumber <- testNumbers, testNumber > 0, testNumber <= length (getTests tests)]
       mapM_ (uncurry (runner benchmarkCount)) selectedTests

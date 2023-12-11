@@ -44,6 +44,21 @@ runhaskell module/lesson1/test1.hs 1 -b 1000000
 > [!TIP]
 > Haskell is actually pretty fast, use millions of iterations or you'll get 0.0s
 
+## 📁 Submodule version
+
+The Submodule version can be found in the **Submodule** branch.
+It can be used like this:
+
+```hs
+import Submodule.Utils.Test (run)
+```
+
+Add it as a submodule to your project:
+
+```bash
+git submodule add -b submodule https://github.com/Rettend/haskell-template.git submodule
+```
+
 ## 📜 License
 
 [MIT](LICENSE)

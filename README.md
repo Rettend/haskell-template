@@ -56,7 +56,7 @@ import Submodule.Utils.Test (run)
 Add it as a submodule to your project:
 
 ```bash
-git submodule add -b submodule https://github.com/Rettend/haskell-template.git
+git submodule add -b submodule https://github.com/Rettend/haskell-template.git submodule
 ```
 
 ## 📜 License

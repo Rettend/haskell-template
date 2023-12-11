@@ -17,9 +17,10 @@ run tests = do
   let testNumbers = mapMaybe readMaybe testArgs
   let benchmarkCount = if null benchmarkArgs then Nothing else Just (fromMaybe 1 (listToMaybe $ mapMaybe readMaybe (drop 1 benchmarkArgs)))
   if null testNumbers
-    then
-      let tests' = getTests tests
-       in mapM_ (uncurry (runner benchmarkCount)) (zip [1 ..] tests')
+    then do
+      mapM_ (uncurry (runner benchmarkCount)) (zip [1 ..] (getTests tests))
+      putStrLn "Result:"
+      void $ runTestTT tests
     else do
       let selectedTests = [(testNumber, getTests tests !! (testNumber - 1)) | testNumber <- testNumbers, testNumber > 0, testNumber <= length (getTests tests)]
       mapM_ (uncurry (runner benchmarkCount)) selectedTests
@@ -27,7 +28,7 @@ run tests = do
 runner :: Maybe Int -> Int -> Test -> IO ()
 runner benchmarkCount testNumber test = do
   putStrLn $ "Test #" ++ show testNumber
-  void (runTestTT test)
+  void $ runTestTT test
   when (isJust benchmarkCount) $ do
     let count = fromMaybe 1 benchmarkCount
     times <- replicateM count $ do

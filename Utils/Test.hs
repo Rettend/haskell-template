@@ -21,11 +21,13 @@ run tests = do
   if null testNumbers
     then do
       mapM_ (uncurry (runner benchmarkCount)) (zip [1 ..] (getTests tests))
+      putStrLn "Result:"
+      void $ runTestTT tests
     else do
       let selectedTests = [(testNumber, getTests tests !! (testNumber - 1)) | testNumber <- testNumbers, testNumber > 0, testNumber <= length (getTests tests)]
       mapM_ (uncurry (runner benchmarkCount)) selectedTests
-  putStrLn "Result:"
-  void $ runTestTT tests
+      putStrLn "Result:"
+      void $ runTestTT $ TestList $ map snd selectedTests
 
 runner :: Maybe Int -> Int -> Test -> IO ()
 runner benchmarkCount testNumber test = do

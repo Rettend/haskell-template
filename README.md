@@ -6,12 +6,13 @@ Dependencies:
 
 - HUnit
 - tabular
+- ansi-terminal
 
 > [!IMPORTANT]  
 > Install the dependencies using `cabal install`
 
 ```bash
-cabal install HUnit
+cabal install --lib HUnit
 ```
 
 ## 📖 Usage
